@@ -6,7 +6,6 @@ shared_script "@vrp/lib/utils.lua"
 
 client_scripts {
 	"@PolyZone/client.lua",
-	-- "@vrp/config/Native.lua",
 	"client-side/*"
 }
 

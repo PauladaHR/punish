@@ -3,9 +3,9 @@ local Tunnel = module("vrp","lib/Tunnel")
 local Proxy = module("vrp","lib/Proxy")
 vRP = Proxy.getInterface("vRP")
 
-Hiro = {}
-Tunnel.bindInterface(GetCurrentResourceName(), Hiro)
-vSERVER = Tunnel.getInterface(GetCurrentResourceName())
+src = {}
+Tunnel.bindInterface("punish", src)
+vSERVER = Tunnel.getInterface("punish")
 
 local Punish = false
 local punishLocal = 1
@@ -140,7 +140,6 @@ function startBoxThread()
 	end)
 end
 
-
 function placeObject(hash, Number)
 	local hash = GetHashKey(hash)
 	while not HasModelLoaded(hash) do
@@ -153,15 +152,13 @@ function placeObject(hash, Number)
 	PlaceObjectOnGroundProperly(Shit[Number])
 	FreezeEntityPosition(Shit[Number],true)
 	SetModelAsNoLongerNeeded(hash)
-
-	print(Number, json.encode(Shit))
 end
 
 function removeObject(Number)
 	DeleteObject(Shit[Number])
 end
 
-function Hiro.startPunishment(Locate)
+function src.startPunishment(Locate)
     if not Punish then
         Punish = true
 		for i = 1, #punishServices[punishLocal] do
@@ -180,7 +177,7 @@ function Hiro.startPunishment(Locate)
 	end
 end
 
-function Hiro.stopPunishment()
+function src.stopPunishment()
 	Punish = false
 	Quantity = 0
 	punishLeave = 0
